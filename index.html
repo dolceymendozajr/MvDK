@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
     <title>Mario vs Donkey Kong</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.png">
 	<script type="text/javascript" src="js/phaser.min.js"></script>
     <style type="text/css">
         body {
@@ -23,9 +24,10 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 function preload() {
 
     game.load.image('sky', 'assets/bg.jpeg');
-    game.load.image('ground', 'assets/stone2.png');
-    game.load.spritesheet('star', 'assets/stars.png',1,1);
-    game.load.spritesheet('mario', 'assets/mario2.png', 40, 50);
+    game.load.image('ground', 'assets/ground.png');
+    game.load.image('ledges', 'assets/ledges.png');
+    game.load.spritesheet('star', 'assets/stars.png', 26,26);
+    game.load.spritesheet('mario', 'assets/mario.png', 40, 50);
 
 }
 
@@ -36,7 +38,7 @@ var ledges;
 
 var stars;
 var score = 0;
-var scoreText;
+var starText;
 
 function create() {
 
@@ -52,7 +54,6 @@ function create() {
 
     // Creamos el piso y lo escalamos para que tome el ancho completo, además le asignamos la propiedad de que sea inamovible
     var ground = platforms.create(0, game.world.height - 64, 'ground');
-    ground.scale.setTo(2, 2);
     ground.body.immovable = true;
 
     //  Creamos las 15 plataformas 
@@ -60,12 +61,14 @@ function create() {
     ledges.enableBody = true;
         //TOFIX
     for (var i = 0; i < 15; i++) {
+        
         if(i % 2===0){
             var z = i*20;
-            var ledge = ledges.create(z+10, z*2+i, 'ground');
+            var ledge = ledges.create(z+10, z*2+i, 'ledges');
         }else{
-            var ledge = ledges.create(z, z, 'ground');
+            var ledge = ledges.create(z, z, 'ledges');
         }
+        
         ledge.body.immovable=true;
     }
 
@@ -104,7 +107,7 @@ function create() {
     }
 
     //  Creamos el puntaje
-    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff'});
+    starText = game.add.text(16, 16, 'Stars collected: 0', { fontSize: '32px', fill: '#fff'});
 
     //  Creamos los controladores
     cursors = game.input.keyboard.createCursorKeys();
@@ -113,40 +116,44 @@ function create() {
 
 function update() {
 
-    //  Collide the mario and the stars with the platforms
+    //  Creamos las coalisiones entre los diferentes objetos
     game.physics.arcade.collide(mario, platforms);
     game.physics.arcade.collide(mario, ledges);
     game.physics.arcade.collide(stars, platforms);
+    game.physics.arcade.collide(stars, ledges);
 
-    //  Checks to see if the mario overlaps with any of the stars, if he does call the collectStar function
+    // Activamos la animación a las estrellas
+    stars.callAll('play',null,'rotate');
+
+    // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
     game.physics.arcade.overlap(mario, stars, collectStar, null, this);
 
-    //  Reset the marios velocity (movement)
+    //  Resetear el movimiento de mario a 0
     mario.body.velocity.x = 0;
 
     if (cursors.left.isDown)
     {
-        //  Move to the left
+        //  Moverse a la izquierda
         mario.body.velocity.x = -150;
 
         mario.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
-        //  Move to the right
+        //  Moverse a la derecha
         mario.body.velocity.x = 150;
 
         mario.animations.play('right');
     }
     else
     {
-        //  Stand still
+        //  Quedarse quieto
         mario.animations.stop();
 
         mario.frame = 4;
     }
 
-    //  Allow the mario to jump if they are touching the ground.
+    //  Le permite que mario salte si está tocando el suelo
     if (cursors.up.isDown && mario.body.touching.down)
     {
         mario.body.velocity.y = -350;
@@ -156,12 +163,12 @@ function update() {
 
 function collectStar (mario, star) {
 
-    // Removes the star from the screen
+    // Elimina la estrella de la pantalla
     star.kill();
 
-    //  Add and update the score
-    score += 10;
-    scoreText.text = 'Score: ' + score;
+    //  Actualiza el puntaje y agrega la estrella
+    score++;
+    starText.text = 'Stars collected: ' + score;
 
 }
 
