@@ -1,5 +1,4 @@
-
-
+    
 var game = new Phaser.Game(800, 800, Phaser.AUTO, "", {
     preload: preload,
     create: create,
@@ -81,7 +80,7 @@ function Ledges() {
     ledges = game.add.group();
     ledges.enableBody = true;
     for (var i = 0; i < 5; i++) {
-        var a = i * 105;
+        var a = i * 110;
         var ledge;
         for (var j = 0; j < 3; j++) {
             switch (j) {
@@ -113,7 +112,7 @@ function Platforms() {
     ground.body.immovable = true;
 
     // Creamos la plataforma principal para Donkey Kong
-    var mainPlatform = platforms.create(280, 100, "ground");
+    var mainPlatform = platforms.create(280, 120, "ground");
     mainPlatform.scale.setTo(0.3, 0.5);
     mainPlatform.body.immovable = true;
 }
@@ -127,7 +126,7 @@ function CreateMario() {
 
     //  Le damos propiedades de rebote, gravedad y coalisiones
     mario.body.bounce.y = 0.1;
-    mario.body.gravity.y = 800;
+    mario.body.gravity.y = 600;
     mario.body.collideWorldBounds = true;
 
     //  Creamos las dos animaciones, correr a la izquierda y derecha
@@ -160,23 +159,37 @@ function CreateBarrel() {
 }
 
 function CreateStars() {
+
     //  Creamos el grupo de las estrellas y le damos la propiedad de cuerpo
     stars = game.add.group();
     stars.enableBody = true;
 
     //  Crearemos las 10 estrellas para poder ganar el juego
-    for (var i = 0; i < 10; i++) {
-        //  Create a star inside of the 'stars' group
-        var star = stars.create(i * 70, 0, "star");
+    for (var i = 0; i < 3; i++) {
+        var x=i*300+80;
+        for (var j = 0; j < 3; j++) {
+            var y=j*150+150;
 
-        //  Let gravity do its thing
-        star.body.gravity.y = 300;
+            //  Create a star inside of the 'stars' group
+            var star = stars.create(x, y, "star");
 
-        //  This just gives each star a slightly random bounce value
-        star.body.bounce.y = 0.7 + Math.random() * 0.2;
-        //Creamos las animaciones de las estrellas
-        star.animations.add("rotate", [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
+            //  Let gravity do its thing
+            star.body.gravity.y = 300;
+
+            //  This just gives each star a slightly random bounce value
+            star.body.bounce.y = 0.7 + Math.random() * 0.2;
+            
+            //Creamos las animaciones de las estrellas
+            star.animations.add("rotate", [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
+        }
     }
+
+    var bigStar = stars.create(480,0, "star");
+    bigStar.scale.setTo(1.3,1.3);
+    bigStar.body.gravity.y = 300;
+    bigStar.body.bounce.y = 0.7;
+    bigStar.animations.add("rotate", [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
+
 }
 
 function Collides() {
