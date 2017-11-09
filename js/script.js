@@ -112,7 +112,7 @@ function Platforms() {
     ground.body.immovable = true;
 
     // Creamos la plataforma principal para Donkey Kong
-    var mainPlatform = platforms.create(280, 120, "ground");
+    var mainPlatform = platforms.create(280, 100, "ground");
     mainPlatform.scale.setTo(0.3, 0.5);
     mainPlatform.body.immovable = true;
 }
