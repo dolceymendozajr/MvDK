@@ -149,6 +149,7 @@ function CreateBarrel() {
 
   //  Le damos propiedades de rebote, gravedad y coalisiones
   barrel.body.bounce.x = 1;
+  barrel.body.bounce.y = 0.2;
   barrel.body.gravity.y = 800;
   barrel.body.collideWorldBounds = true;
 
@@ -200,6 +201,7 @@ function Collides() {
     game.physics.arcade.collide(stars, ledges);
     game.physics.arcade.collide(barrels, platforms);
     game.physics.arcade.collide(barrels, ledges);
+    game.physics.arcade.collide(mario, barrel);
 }
 
 function MoveMario() {
