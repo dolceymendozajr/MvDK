@@ -11,8 +11,7 @@ function preload() {
     game.load.image("ledges", "assets/ledges.png");
     game.load.spritesheet("star", "assets/stars.png", 26, 26);
     game.load.spritesheet("barrel", "assets/barrels.png", 28, 30);
-    //game.load.spritesheet('mario', 'assets/mario.png', 40, 50);
-    game.load.spritesheet("mario", "assets/mario1.png", 23, 35);
+    game.load.spritesheet("mario", "assets/mario.png", 23, 35);
 }
 
 var mario;
@@ -70,7 +69,7 @@ function update() {
 
     // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
     game.physics.arcade.overlap(mario, stars, collectStar, null, this);
-    game.physics.arcade.overlap(mario, barrels, collideBarrels, null, this);
+    game.physics.arcade.overlap(barrels, mario, collideBarrels, null, this);
     MoveMario();
 }
 
@@ -150,8 +149,6 @@ function CreateMario() {
     mario.body.collideWorldBounds = true;
 
     //  Creamos las dos animaciones, correr a la izquierda y derecha
-    //mario.animations.add('left', [0, 1, 2], 10, true);
-    //mario.animations.add('right', [3, 4, 5], 10, true);
     mario.animations.add("left", [0, 1, 2, 3], 10, true);
     mario.animations.add("right", [5, 6, 7, 8], 10, true);
 }
