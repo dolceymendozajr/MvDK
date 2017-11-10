@@ -21,8 +21,7 @@ var cursors;
 var ledges;
 var barrels;
 var velocityOfBarrels = 300;
-var barrel;
-
+var i = 0;
 var stars;
 var score = 0;
 var starText;
@@ -42,7 +41,11 @@ function create() {
 
     CreateStars();
 
-    CreateBarrel();
+    barrels = game.add.group();
+    barrels.enableBody = true;
+
+    test();
+    console.log("paso test");
 
     //  Creamos el puntaje
     starText = game.add.text(16, 20, "Stars collected: 0", {
@@ -52,18 +55,29 @@ function create() {
 
     //  Creamos los controladores
     cursors = game.input.keyboard.createCursorKeys();
+
+    
 }
 
 function update() {
     Collides();
-    barrel.animations.play("right");
+    
+    //i++;
+    //console.log("i: "+i);
+    
     // Activamos la animación a las estrellas
     stars.callAll("play", null, "rotate");
 
     // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
     game.physics.arcade.overlap(mario, stars, collectStar, null, this);
-
+    game.physics.arcade.overlap(mario, barrels, collideBarrels, null, this);
     MoveMario();
+}
+
+function collideBarrels(){
+    // Elimina la estrella de la pantalla
+    mario.kill();
+    starText.text = "Pelaste el bollo !!";
 }
 
 function collectStar(mario, star) {
@@ -73,6 +87,12 @@ function collectStar(mario, star) {
     //  Actualiza el puntaje y agrega la estrella
     score++;
     starText.text = "Stars collected: " + score;
+}
+
+function test(){
+    console.log("aqui va otro barril !!!!");
+    CreateBarrel();
+    game.time.events.add(Phaser.Timer.SECOND * 2, test, this);
 }
 
 function Ledges() {
@@ -138,11 +158,10 @@ function CreateMario() {
 
 function CreateBarrel() {
   //
-  barrels = game.add.group();
-  barrels.enableBody = true;
+
 
   //
-  barrel = barrels.create(32, 32, "barrel");
+  var barrel = barrels.create(32, 32, "barrel");
 
   //  Activamos las fisicas
   game.physics.arcade.enable(barrel);
@@ -157,6 +176,8 @@ function CreateBarrel() {
   barrel.animations.add("right", [4, 5, 6, 7], 10, true);
 
   barrel.body.velocity.x = velocityOfBarrels;
+
+  barrel.animations.play("right");
 }
 
 function CreateStars() {
@@ -201,7 +222,8 @@ function Collides() {
     game.physics.arcade.collide(stars, ledges);
     game.physics.arcade.collide(barrels, platforms);
     game.physics.arcade.collide(barrels, ledges);
-    game.physics.arcade.collide(mario, barrel);
+    game.physics.arcade.collide(mario, barrels);
+    game.physics.arcade.collide(barrels, barrels);
 }
 
 function MoveMario() {
