@@ -91,7 +91,7 @@ function collectStar(mario, star) {
 function test(){
     console.log("aqui va otro barril !!!!");
     CreateBarrel();
-    game.time.events.add(Phaser.Timer.SECOND * 2, test, this);
+    game.time.events.add(Phaser.Timer.SECOND * 2, test, this); //hilo 
 }
 
 function Ledges() {
@@ -154,9 +154,6 @@ function CreateMario() {
 }
 
 function CreateBarrel() {
-  //
-
-
   //
   var barrel = barrels.create(32, 32, "barrel");
 
