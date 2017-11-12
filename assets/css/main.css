@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+    background: url("assets/sprites/bg.jpeg");
+}
+
+canvas {
+    margin: 0 auto;
+}
