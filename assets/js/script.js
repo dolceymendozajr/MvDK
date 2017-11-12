@@ -55,21 +55,14 @@ function create() {
     //  Creamos los controladores
     cursors = game.input.keyboard.createCursorKeys();
 
-    
+
 }
 
 function update() {
-    Collides();
-    
-    //i++;
-    //console.log("i: "+i);
-    
-    // Activamos la animación a las estrellas
-    stars.callAll("play", null, "rotate");
-
-    // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
-    game.physics.arcade.overlap(mario, stars, collectStar, null, this);
     game.physics.arcade.overlap(barrels, mario, collideBarrels, null, this);
+    Collides();
+    // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
+    game.physics.arcade.overlap(mario, stars, collectStar, null, this);  
     MoveMario();
 }
 
@@ -206,6 +199,8 @@ function CreateStars() {
     bigStar.body.bounce.y = 0.7;
     bigStar.animations.add("rotate", [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
 
+    // Activamos la animación a las estrellas
+    stars.callAll("play", null, "rotate");
 }
 
 function Collides() {
@@ -237,7 +232,6 @@ function MoveMario() {
     } else {
         //  Quedarse quieto
         mario.animations.stop();
-
         mario.frame = 4;
     }
 
