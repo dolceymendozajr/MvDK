@@ -3,6 +3,7 @@ var main = {
         game.load.image("sky", "assets/img/bg.jpeg");
         game.load.image("ground", "assets/sprites/ground.png");
         game.load.image("ledges", "assets/sprites/ledges.png");
+        game.load.spritesheet("donkeyStart", "assets/sprites/donkeyStart.png",61.33,55);
         game.load.spritesheet("star", "assets/sprites/stars.png", 26, 26);
         game.load.spritesheet("barrel", "assets/sprites/barrels.png", 28, 30);
         game.load.spritesheet("mario", "assets/sprites/mario.png", 23, 35);
@@ -19,6 +20,8 @@ var main = {
         Ledges();
     
         CreateMario();
+
+        CreateDonkey();
     
         CreateStars();
     
@@ -26,7 +29,7 @@ var main = {
         barrels.enableBody = true;
         
         //aqui genera por primera vez un barril y luego se ira repitiendo ese proceso
-        newBarrel();
+        newBarrel(1);
     
         //  Creamos el puntaje
         starText = game.add.text(16, 20, "Stars collected: 0", {
@@ -48,7 +51,7 @@ var main = {
 
         //aqui llama a todas las colisiones
         Collides();   
-         
+
         // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
         game.physics.arcade.overlap(mario, stars, collectStar, null, this);  
         

@@ -1,4 +1,8 @@
+//characters
 var mario;
+var donkey;
+
+//objects
 var platforms;
 var ground;
 var cursors;
@@ -13,6 +17,7 @@ var starText;
 function Collides() {
     //  Creamos las coalisiones entre los diferentes objetos
     game.physics.arcade.collide(mario, platforms);
+    game.physics.arcade.collide(donkey, platforms);
     game.physics.arcade.collide(mario, ledges);
     game.physics.arcade.collide(stars, platforms);
     game.physics.arcade.collide(stars, ledges);
