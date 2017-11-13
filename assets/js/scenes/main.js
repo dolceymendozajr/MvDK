@@ -26,7 +26,6 @@ var main = {
         barrels.enableBody = true;
     
         test();
-        console.log("paso test");
     
         //  Creamos el puntaje
         starText = game.add.text(16, 20, "Stars collected: 0", {
@@ -41,7 +40,9 @@ var main = {
 
     update: function() {
         game.physics.arcade.overlap(barrels, mario, collideBarrels, null, this);
+        
         Collides();
+        
         // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
         game.physics.arcade.overlap(mario, stars, collectStar, null, this);  
         MoveMario();
