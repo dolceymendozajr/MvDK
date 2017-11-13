@@ -24,8 +24,9 @@ var main = {
     
         barrels = game.add.group();
         barrels.enableBody = true;
-    
-        test();
+        
+        //aqui genera por primera vez un barril y luego se ira repitiendo ese proceso
+        newBarrel();
     
         //  Creamos el puntaje
         starText = game.add.text(16, 20, "Stars collected: 0", {
@@ -39,12 +40,19 @@ var main = {
     },
 
     update: function() {
-        game.physics.arcade.overlap(barrels, mario, collideBarrels, null, this);
-        
-        Collides();
-        
+        //aqui esta pendiente caundo un barril choca con mario
+        game.physics.arcade.overlap(barrels,mario, collideBarrels, null, this);
+        //aqui esta pendiente cuando un barril impacta la ultima plataforma
+
+        game.physics.arcade.overlap(barrels , ground, deleteBarrel, null, this);
+
+        //aqui llama a todas las colisiones
+        Collides();   
+         
         // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
         game.physics.arcade.overlap(mario, stars, collectStar, null, this);  
+        
+        //aqui se encuentran todos los movimientos de mario 
         MoveMario();
     }
 }

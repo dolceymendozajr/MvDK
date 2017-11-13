@@ -19,14 +19,19 @@ function CreateBarrel() {
     barrel.animations.play("right");
 }
 
-function test(){
+function newBarrel(){
     console.log("aqui va otro barril !!!!");
     CreateBarrel();
-    game.time.events.add(Phaser.Timer.SECOND * 2, test, this); //hilo 
+    game.time.events.add(Phaser.Timer.SECOND * 2, newBarrel, this); //hilo 
 }
 
 function collideBarrels(){
     mario.kill();
     starText.text = "Pelaste el bollo !!";
     game.state.start("finish");
+}
+
+function deleteBarrel(ground, barrel){ 
+    barrel.body.collideWorldBounds = false;
+    barrel.body.outOfBoundsKill = true;
 }

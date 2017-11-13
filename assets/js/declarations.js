@@ -1,5 +1,6 @@
 var mario;
 var platforms;
+var ground;
 var cursors;
 var ledges;
 var barrels;

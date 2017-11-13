@@ -4,7 +4,7 @@ function Platforms() {
     platforms.enableBody = true;
 
     // Creamos el piso y lo escalamos para que tome el ancho completo, además le asignamos la propiedad de que sea inamovible
-    var ground = platforms.create(0, game.world.height - 64, "ground");
+    ground = platforms.create(0, game.world.height - 64, "ground");
     ground.body.immovable = true;
 
     // Creamos la plataforma principal para Donkey Kong

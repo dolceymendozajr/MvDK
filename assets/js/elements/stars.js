@@ -35,6 +35,7 @@ function CreateStars() {
     }
 
     function collectStar(mario, star) {
+        
         // Elimina la estrella de la pantalla
         star.kill();
     
