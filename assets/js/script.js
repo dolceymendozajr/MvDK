@@ -11,9 +11,9 @@ var starText;
 
 
 function collideBarrels(){
-    // Elimina la estrella de la pantalla
     mario.kill();
     starText.text = "Pelaste el bollo !!";
+    game.state.start("finish");
 }
 
 function collectStar(mario, star) {
