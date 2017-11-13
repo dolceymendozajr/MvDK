@@ -1,18 +1,5 @@
     
-var game = new Phaser.Game(800, 800, Phaser.AUTO, "", {
-    preload: preload,
-    create: create,
-    update: update
-});
-
-function preload() {
-    game.load.image("sky", "assets/sprites/bg.jpeg");
-    game.load.image("ground", "assets/sprites/ground.png");
-    game.load.image("ledges", "assets/sprites/ledges.png");
-    game.load.spritesheet("star", "assets/sprites/stars.png", 26, 26);
-    game.load.spritesheet("barrel", "assets/sprites/barrels.png", 28, 30);
-    game.load.spritesheet("mario", "assets/sprites/mario.png", 23, 35);
-}
+var game = new Phaser.Game(800, 800, Phaser.AUTO, "");
 
 var mario;
 var platforms;
@@ -25,46 +12,6 @@ var stars;
 var score = 0;
 var starText;
 
-function create() {
-    //Iniciar sistemas de fisicas, modo arcade
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    //Agregar background
-    game.add.sprite(0, 0, "sky");
-
-    Platforms();
-
-    Ledges();
-
-    CreateMario();
-
-    CreateStars();
-
-    barrels = game.add.group();
-    barrels.enableBody = true;
-
-    test();
-    console.log("paso test");
-
-    //  Creamos el puntaje
-    starText = game.add.text(16, 20, "Stars collected: 0", {
-        fontSize: "32px",
-        fill: "#d83bdb"
-    });
-
-    //  Creamos los controladores
-    cursors = game.input.keyboard.createCursorKeys();
-
-
-}
-
-function update() {
-    game.physics.arcade.overlap(barrels, mario, collideBarrels, null, this);
-    Collides();
-    // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
-    game.physics.arcade.overlap(mario, stars, collectStar, null, this);  
-    MoveMario();
-}
 
 function collideBarrels(){
     // Elimina la estrella de la pantalla
@@ -240,3 +187,83 @@ function MoveMario() {
         mario.body.velocity.y = -350;
     }
 }
+
+var states = {
+    start:{
+        preload: function() {
+
+        },
+
+        create: function() {
+            controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            var mainText= game.add.text(game.width/2 - 115,game.height/2 +50,'Press [SPACEBAR] to start',{font: "25px Arial",fill: "#ffffff"});
+            var authorsT = game.add.text(game.width/2-40,game.height -160,'Authors',{font: "25px Arial",fill: "#ffffff"});
+            var brText = game.add.text(game.width/2-70,game.height -140,'Dolcey Mendoza',{font: "25px Arial",fill: "#ffffff"});
+            var jrText = game.add.text(game.width/2-70,game.height -120,'Martin Molinares',{font: "25px Arial",fill: "#ffffff"});
+            var javText =game.add.text(game.width/2-70,game.height -100,'William Cadenas',{font: "25px Arial",fill: "#ffffff"});
+            game.add.tween(mainText).to( { alpha: 0 }, 1000, "Linear", true,0,-1,true);
+        },
+
+        update: function() {
+            if(controllers.isDown){
+                game.state.start('main');     
+            }
+        }
+    },
+    
+    
+    main: {
+        preload: function() {
+            game.load.image("sky", "assets/img/bg.jpeg");
+            game.load.image("ground", "assets/sprites/ground.png");
+            game.load.image("ledges", "assets/sprites/ledges.png");
+            game.load.spritesheet("star", "assets/sprites/stars.png", 26, 26);
+            game.load.spritesheet("barrel", "assets/sprites/barrels.png", 28, 30);
+            game.load.spritesheet("mario", "assets/sprites/mario.png", 23, 35);
+        },
+
+        create: function() {
+            //Iniciar sistemas de fisicas, modo arcade
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+            //Agregar background
+            game.add.sprite(0, 0, "sky");
+        
+            Platforms();
+        
+            Ledges();
+        
+            CreateMario();
+        
+            CreateStars();
+        
+            barrels = game.add.group();
+            barrels.enableBody = true;
+        
+            test();
+            console.log("paso test");
+        
+            //  Creamos el puntaje
+            starText = game.add.text(16, 20, "Stars collected: 0", {
+                fontSize: "32px",
+                fill: "#d83bdb"
+            });
+        
+            //  Creamos los controladores
+            cursors = game.input.keyboard.createCursorKeys();
+        
+        },
+
+        update: function() {
+            game.physics.arcade.overlap(barrels, mario, collideBarrels, null, this);
+            Collides();
+            // Permitimos que mario pueda sobreponerse a las estrellas para recolectarlas
+            game.physics.arcade.overlap(mario, stars, collectStar, null, this);  
+            MoveMario();
+        }
+    },
+}
+
+game.state.add('start', states['start']);
+game.state.add('main', states['main']);
+game.state.add('finish', states['finish']);
+game.state.start("start");
