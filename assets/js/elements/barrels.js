@@ -1,4 +1,4 @@
-function CreateBarrel(i) {
+function CreateBarrel() {
     //
     var barrel = barrels.create(game.width / 2 - 30 , 32, "barrel");
   
@@ -23,7 +23,7 @@ function CreateBarrel(i) {
     }
 }
 
-function newBarrel(i){
+function newBarrel(){
 
     console.log("i:"+i);
     if(i == 1){

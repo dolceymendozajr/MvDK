@@ -29,7 +29,7 @@ var main = {
         barrels.enableBody = true;
         
         //aqui genera por primera vez un barril y luego se ira repitiendo ese proceso
-        newBarrel(1);
+        newBarrel();
     
         //  Creamos el puntaje
         starText = game.add.text(16, 20, "Stars collected: 0", {
@@ -39,7 +39,6 @@ var main = {
     
         //  Creamos los controladores
         cursors = game.input.keyboard.createCursorKeys();
-    
     },
 
     update: function() {
