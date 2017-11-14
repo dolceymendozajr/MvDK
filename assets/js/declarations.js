@@ -4,15 +4,20 @@ var donkey;
 
 //objects
 var platforms;
+var mainplatform
 var ground;
-var cursors;
 var ledges;
+
+//objects
+var cursors;
 var barrels;
-var velocityOfBarrels = 300;
 var i = 0;
 var stars;
-var score = 0;
 var starText;
+
+//others
+var velocityOfBarrels = 300;
+var score = 0;
 
 function Collides() {
     //  Creamos las coalisiones entre los diferentes objetos

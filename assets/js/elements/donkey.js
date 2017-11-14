@@ -12,6 +12,6 @@ function CreateDonkey() {
     donkey.body.collideWorldBounds = true;
 
     //  Creamos la animacion, enojado
-    donkey.animations.add("angry", [0, 1, 2], 10, true);
+    donkey.animations.add("angry", [0, 1, 2, 1], 6, true);
     donkey.animations.play("angry");
 }

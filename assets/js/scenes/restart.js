@@ -1,4 +1,4 @@
-var finish= {
+var restart = {
     preload: function() {
         game.load.image('sky', 'assets/img/bg.jpeg');
     },
@@ -6,20 +6,10 @@ var finish= {
     create: function() {
         game.add.sprite(0, 0, "sky");
         controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        var mainText= game.add.text(game.width/2 - 115,game.height/2 +10,
-            '¡¡¡¡ YOU WON !!!!',
-            {font: "25px Arial",fill: "#ffffff"}
-        );
-        controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        var mainText= game.add.text(game.width/2 - 115,game.height/2 +30,
-            'Your Score: '+ score,
-            {font: "25px Arial",fill: "#ffffff"}
-        );
         var mainText= game.add.text(game.width/2 - 115,game.height/2 +50,
             'Press [SPACEBAR] to restart',
             {font: "25px Arial",fill: "#ffffff"}
         );
-
     },
 
     update: function() {

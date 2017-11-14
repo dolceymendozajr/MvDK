@@ -22,7 +22,8 @@ var main = {
         CreateMario();
 
         CreateDonkey();
-    
+        
+        score = 0;
         CreateStars();
     
         barrels = game.add.group();
@@ -42,10 +43,13 @@ var main = {
     },
 
     update: function() {
-        //aqui esta pendiente caundo un barril choca con mario
+        //aqui esta pendiente cuando un barril choca con mario
         game.physics.arcade.overlap(barrels,mario, collideBarrels, null, this);
+        
+        //aqui esta pendiente cuando mario gana
+        game.physics.arcade.overlap(mainPlatform,mario, marioWon, null, this);
+        
         //aqui esta pendiente cuando un barril impacta la ultima plataforma
-
         game.physics.arcade.overlap(barrels , ground, deleteBarrel, null, this);
 
         //aqui llama a todas las colisiones

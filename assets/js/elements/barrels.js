@@ -24,8 +24,6 @@ function CreateBarrel() {
 }
 
 function newBarrel(){
-
-    console.log("i:"+i);
     if(i == 1){
         i = i-1;
     }else{
@@ -37,8 +35,7 @@ function newBarrel(){
 
 function collideBarrels(){
     mario.kill();
-    starText.text = "Pelaste el bollo !!";
-    game.state.start("finish");
+    game.state.start("restart");
 }
 
 function deleteBarrel(ground, barrel){ 
