@@ -7,6 +7,7 @@ var main = {
         game.load.spritesheet("star", "assets/sprites/stars.png", 26, 26);
         game.load.spritesheet("barrel", "assets/sprites/barrels.png", 28, 30);
         game.load.spritesheet("mario", "assets/sprites/mario.png", 23, 35);
+        game.load.spritesheet("peach", "assets/sprites/peachScream.png", 24, 70);
     },
 
     create: function() {
@@ -20,6 +21,8 @@ var main = {
         Ledges();
     
         CreateMario();
+
+        CreatePeach();
 
         CreateDonkey();
         
