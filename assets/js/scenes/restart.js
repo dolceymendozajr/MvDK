@@ -5,15 +5,15 @@ var restart = {
 
     create: function() {
         game.add.sprite(0, 0, "sky");
-        controllers = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        key = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         var mainText= game.add.text(game.width/2 - 115,game.height/2 +50,
-            'Press [SPACEBAR] to restart',
+            'Presiona ↑ para reiniciar el juego',
             {font: "25px Arial",fill: "#ffffff"}
         );
     },
 
     update: function() {
-        if(controllers.isDown){
+        if(key.isDown){
             game.state.start('main');     
         }
     }
