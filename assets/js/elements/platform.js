@@ -14,7 +14,7 @@ function Platforms() {
 }
 
 function marioWon(){
-    if(mario.body.touching.down){
+    if(mario.body.touching.down && score == "10"){
         donkey.kill();
         game.state.start("finish");
     }
